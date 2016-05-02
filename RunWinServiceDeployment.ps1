@@ -9,12 +9,8 @@ Param(
     [string]$userName= $(throw "userName is required"),
     [string]$password = $(throw "password is required"),
     [string]$DeploymentDropPath = $(throw "DeploymentDropPath is required"),
-	[string]$SqlConnectionString = $(throw "SqlConnectionString is required"),
-	[string]$StorageConnectionString = $(throw "StorageConnectionString is required"),
-	[string]$BlobDownloadPath = $(throw "BlobDownloadPath is requied"),
-	[string]$AppInsightsInstrumentationKey = $(throw "AppInsightsInstrumentationKey is required"),
-	[string]$IsDeveloperMode = $(throw "IsDeveloperMode is required"),
-	[string]$BizTalkDBServerName  = $(throw "BizTalkDBServerName is required")
+	[string]$SqlConnectionString = $(throw "SqlConnectionString is required")
+
 )
 
 Import-Module "$DeploymentDropPath\UpdateWinServiceAppConfigFile.psm1"
@@ -42,7 +38,7 @@ Import-Module "$DeploymentDropPath\Test-ServiceResult.psm1"
     Copy-Item "$sourcePath\*" $targetServerUNCpath -recurse -force
 
 	#Update Configurations
-	TransformAppConfig -AppConfigPath $configUNCPath -DbconnectionString $SqlConnectionString -StorageConnectionString $StorageConnectionString -BlobDownloadPath $BlobDownloadPath -AppInsightsInstrumentationKey $AppInsightsInstrumentationKey -IsDeveloperMode $IsDeveloperMode -BizTalkDBServerName $BizTalkDBServerName
+	TransformAppConfig -AppConfigPath $configUNCPath -DbconnectionString $SqlConnectionString
      
     Install-Service `
     -ServiceName $serviceName `
